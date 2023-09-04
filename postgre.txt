@@ -1,0 +1,128 @@
+package main
+
+import (
+  "database/sql"
+  "fmt"
+  "log"
+
+  _ "github.com/lib/pq"
+)
+
+func main() {
+  connStr := "user=HafizhPortofolio password=ikyngOGcL42x dbname=neondb host=ep-ancient-block-62204945.ap-southeast-1.aws.neon.tech sslmode=verify-full"
+  db, err := sql.Open("postgres", connStr)
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer db.Close()
+
+  rows, err := db.Query("select version()")
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer rows.Close()
+
+  var version string
+  for rows.Next() {
+    err := rows.Scan(&version)
+    if err != nil {
+      log.Fatal(err)
+    }
+  }
+  fmt.Printf("version=%s\n", version)
+}
+
+@orang111357
+
+
+
+// Delete implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) Delete(portofolioId int) {
+	var portofolios model.Portofolio
+	result := t.Db.Where("id=?", portofolioId).Delete(&portofolios)
+	helper.ErrorPanic(result.Error)
+}
+
+// FindAll implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) FindAll() []model.Portofolio {
+	var portofolios []model.Portofolio
+	result := t.Db.Find(&portofolios)
+	helper.ErrorPanic(result.Error)
+	return portofolios
+}
+
+// FindBack implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) FindBack(kategori string) []model.Portofolio {
+	var portofolios []model.Portofolio
+	result := t.Db.Where("kategori = Back End Development").Find(&portofolios)
+	// result := t.Db.Find(&portofolios, kategori)
+	helper.ErrorPanic(result.Error)
+	return portofolios
+}
+
+// FindById implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) FindById(portofolioId int) (portofolio model.Portofolio, err error) {
+	var portofolios model.Portofolio
+	result := t.Db.Find(&portofolios, portofolioId)
+	if result != nil {
+		return portofolios, nil
+	} else {
+		return portofolios, errors.New("tag Not Found")
+	}
+}
+
+// FindData implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) FindData(kategori string) []model.Portofolio {
+	var portofolios []model.Portofolio
+	result := t.Db.Where("kategori = Data Analyst").Find(&portofolios)
+	// result := t.Db.Find(&portofolios, kategori)
+	helper.ErrorPanic(result.Error)
+	return portofolios
+}
+
+// FindDesign implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) FindDesign(kategori string) []model.Portofolio {
+	var portofolios []model.Portofolio
+	result := t.Db.Where("kategori = Design").Find(&portofolios)
+	// result := t.Db.Find(&portofolios, kategori)
+	helper.ErrorPanic(result.Error)
+	return portofolios
+}
+
+// FindFront implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) FindFront(kategori string) []model.Portofolio {
+	var portofolios []model.Portofolio
+	result := t.Db.Where("kategori = Front End Development").Find(&portofolios)
+	// result := t.Db.Find(&portofolios, kategori)
+	helper.ErrorPanic(result.Error)
+	return portofolios
+}
+
+// FindIndustrial implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) FindIndustrial(kategori string) []model.Portofolio {
+	var portofolios []model.Portofolio
+	result := t.Db.Where("kategori = Industrial Engineering").Find(&portofolios)
+	// result := t.Db.Find(&portofolios, kategori)
+	helper.ErrorPanic(result.Error)
+	return portofolios
+}
+
+// Save implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) Save(portofolio model.Portofolio) {
+	result := t.Db.Find(&portofolio)
+	helper.ErrorPanic(result.Error)
+}
+
+// Update implements PortofoliosRepository.
+func (t *PortofoliosRepositoryImpl) Update(portofolio model.Portofolio) {
+	var updatePortofolio = request.UpdatePortofoliosRequest{
+		Id:             portofolio.Id,
+		NamaPortofolio: portofolio.NamaPortofolio,
+		Deskripsi:      portofolio.Deskripsi,
+		UrlGambar:      portofolio.UrlGambar,
+		UrlLink:        portofolio.UrlLink,
+		Kategori:       portofolio.Kategori,
+	}
+	result := t.Db.Model(&portofolio).Updates(updatePortofolio)
+	helper.ErrorPanic(result.Error)
+}
