@@ -33,6 +33,7 @@ func (controller *CertificateController) Create(ctx *gin.Context) {
 		Data:   nil,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 
 }
@@ -56,6 +57,7 @@ func (controller *CertificateController) Update(ctx *gin.Context) {
 		Data:   nil,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 
 }
@@ -74,6 +76,7 @@ func (controller *CertificateController) Delete(ctx *gin.Context) {
 		Data:   nil,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -91,6 +94,7 @@ func (controller *CertificateController) FindById(ctx *gin.Context) {
 		Data:   certificateResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -105,6 +109,7 @@ func (controller *CertificateController) FindAll(ctx *gin.Context) {
 		Data:   certificateResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -119,6 +124,7 @@ func (controller *CertificateController) FindSoftSkill(ctx *gin.Context) {
 		Data:   certificateResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -133,6 +139,7 @@ func (controller *CertificateController) FindIndustrial(ctx *gin.Context) {
 		Data:   certificateResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -147,6 +154,7 @@ func (controller *CertificateController) FindProgramming(ctx *gin.Context) {
 		Data:   certificateResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -161,6 +169,7 @@ func (controller *CertificateController) FindLanguage(ctx *gin.Context) {
 		Data:   certificateResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -175,6 +184,7 @@ func (controller *CertificateController) FindEvent(ctx *gin.Context) {
 		Data:   certificateResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -189,5 +199,6 @@ func (controller *CertificateController) FindCategory(ctx *gin.Context) {
 		Data:   certificateResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }

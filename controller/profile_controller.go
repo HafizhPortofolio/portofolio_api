@@ -33,6 +33,7 @@ func (controller *ProfileController) Create(ctx *gin.Context) {
 		Data:   nil,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 
 }
@@ -56,6 +57,7 @@ func (controller *ProfileController) Update(ctx *gin.Context) {
 		Data:   nil,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 
 }
@@ -74,6 +76,7 @@ func (controller *ProfileController) Delete(ctx *gin.Context) {
 		Data:   nil,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -91,6 +94,7 @@ func (controller *ProfileController) FindById(ctx *gin.Context) {
 		Data:   profileResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -105,5 +109,6 @@ func (controller *ProfileController) FindAll(ctx *gin.Context) {
 		Data:   profileResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.JSON(http.StatusOK, webResponse)
 }
