@@ -99,7 +99,7 @@ func (t *CertificatesRepositoryImpl) FindSoftSkill(kategori string) []model.Cert
 
 // Save implements CertificatesRepository.
 func (t *CertificatesRepositoryImpl) Save(certificate model.Certificate) {
-	result := t.Db.Find(&certificate)
+	result := t.Db.Create(&certificate)
 	helper.ErrorPanic(result.Error)
 }
 

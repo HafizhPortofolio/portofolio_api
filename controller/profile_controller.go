@@ -23,6 +23,7 @@ func NewProfileController(service service.ProfilesService) *ProfileController {
 
 // create controller
 func (controller *ProfileController) Create(ctx *gin.Context) {
+	// enablecors
 	createProfilesRequest := request.CreateProfilesRequest{}
 	err := ctx.ShouldBindJSON(&createProfilesRequest)
 	helper.ErrorPanic(err)
@@ -34,6 +35,8 @@ func (controller *ProfileController) Create(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 
 }
@@ -58,6 +61,8 @@ func (controller *ProfileController) Update(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 
 }
@@ -77,6 +82,8 @@ func (controller *ProfileController) Delete(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -95,6 +102,8 @@ func (controller *ProfileController) FindById(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -110,5 +119,24 @@ func (controller *ProfileController) FindAll(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
+	ctx.JSON(http.StatusOK, webResponse)
+}
+
+// FindFirst controller
+func (controller *ProfileController) FindFirst(ctx *gin.Context) {
+
+	profileResponse := controller.profilesService.FindFirst()
+
+	webResponse := response.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK!",
+		Data:   profileResponse,
+	}
+	ctx.Header("Content-Type", "application/json")
+	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }

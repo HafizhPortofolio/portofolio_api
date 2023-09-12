@@ -22,23 +22,23 @@ func NewPortofoliosServiceImpl(portofoliosRepository repository.PortofoliosRepos
 }
 
 // Create implements PortofoliosService.
-func (t *PortofoliosServiceImpl) Create(portofolio request.CreatePortofoliosRequest) {
-	err := t.validate.Struct(portofolio)
+func (t *PortofoliosServiceImpl) Create(portofolios request.CreatePortofoliosRequest) {
+	err := t.validate.Struct(portofolios)
 	helper.ErrorPanic(err)
-	portofolioModel := model.Portofolio{
+	portofolioModel := model.Portofolios{
 
-		NamaPortofolio: portofolio.NamaPortofolio,
-		Deskripsi:      portofolio.Deskripsi,
-		UrlGambar:      portofolio.UrlGambar,
-		UrlLink:        portofolio.UrlLink,
-		Kategori:       portofolio.Kategori,
+		NamaPortofolio: portofolios.NamaPortofolio,
+		Deskripsi:      portofolios.Deskripsi,
+		UrlGambar:      portofolios.UrlGambar,
+		UrlLink:        portofolios.UrlLink,
+		Kategori:       portofolios.Kategori,
 	}
 	t.PortofoliosRepository.Save(portofolioModel)
 }
 
 // Delete implements PortofoliosService.
-func (t *PortofoliosServiceImpl) Delete(portofolioId int) {
-	t.PortofoliosRepository.Delete(portofolioId)
+func (t *PortofoliosServiceImpl) Delete(portofoliosId int) {
+	t.PortofoliosRepository.Delete(portofoliosId)
 }
 
 // FindAll implements PortofoliosService.
@@ -82,8 +82,8 @@ func (t *PortofoliosServiceImpl) FindBack(kategori string) []response.Portofolio
 }
 
 // FindById implements PortofoliosService.
-func (t *PortofoliosServiceImpl) FindById(portofolioId int) response.PortofoliosResponse {
-	portofolioData, err := t.PortofoliosRepository.FindById(portofolioId)
+func (t *PortofoliosServiceImpl) FindById(portofoliosId int) response.PortofoliosResponse {
+	portofolioData, err := t.PortofoliosRepository.FindById(portofoliosId)
 	helper.ErrorPanic(err)
 
 	portofolioResponse := response.PortofoliosResponse{
@@ -178,14 +178,14 @@ func (t *PortofoliosServiceImpl) FindIndustrial(kategori string) []response.Port
 }
 
 // Update implements PortofoliosService.
-func (t *PortofoliosServiceImpl) Update(portofolio request.UpdatePortofoliosRequest) {
-	portofolioData, err := t.PortofoliosRepository.FindById(portofolio.Id)
+func (t *PortofoliosServiceImpl) Update(portofolios request.UpdatePortofoliosRequest) {
+	portofolioData, err := t.PortofoliosRepository.FindById(portofolios.Id)
 	helper.ErrorPanic(err)
-	portofolioData.NamaPortofolio = portofolio.NamaPortofolio
-	portofolioData.Deskripsi = portofolio.Deskripsi
-	portofolioData.UrlGambar = portofolio.UrlGambar
-	portofolioData.UrlLink = portofolio.UrlLink
-	portofolioData.Kategori = portofolio.Kategori
+	portofolioData.NamaPortofolio = portofolios.NamaPortofolio
+	portofolioData.Deskripsi = portofolios.Deskripsi
+	portofolioData.UrlGambar = portofolios.UrlGambar
+	portofolioData.UrlLink = portofolios.UrlLink
+	portofolioData.Kategori = portofolios.Kategori
 
 	t.PortofoliosRepository.Update(portofolioData)
 }
@@ -197,12 +197,12 @@ func (t *PortofoliosServiceImpl) FindCategory() []response.PortofoliosResponse {
 	var portofolios []response.PortofoliosResponse
 	for _, value := range result {
 		portofolio := response.PortofoliosResponse{
-			Id:             value.Id,
-			NamaPortofolio: value.NamaPortofolio,
-			Deskripsi:      value.Deskripsi,
-			UrlGambar:      value.UrlGambar,
-			UrlLink:        value.UrlLink,
-			Kategori:       value.Kategori,
+			// Id:             value.Id,
+			// NamaPortofolio: value.NamaPortofolio,
+			// Deskripsi:      value.Deskripsi,
+			// UrlGambar:      value.UrlGambar,
+			// UrlLink:        value.UrlLink,
+			Kategori: value.Kategori,
 		}
 		portofolios = append(portofolios, portofolio)
 	}

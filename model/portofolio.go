@@ -1,6 +1,6 @@
 package model
 
-type Portofolio struct {
+type Portofolios struct {
 	Id             int    `gorm:"type:int;primary_key"`
 	NamaPortofolio string `gorm:"type:varchar(255)"`
 	Deskripsi      string `gorm:"type:varchar(255)"`

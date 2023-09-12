@@ -6,10 +6,10 @@ import (
 )
 
 type PortofoliosService interface {
-	Create(portofolio request.CreatePortofoliosRequest)
-	Update(portofolio request.UpdatePortofoliosRequest)
-	Delete(portofolioId int)
-	FindById(portofolioId int) response.PortofoliosResponse
+	Create(portofolios request.CreatePortofoliosRequest)
+	Update(portofolios request.UpdatePortofoliosRequest)
+	Delete(portofoliosId int)
+	FindById(portofoliosId int) response.PortofoliosResponse
 	FindAll() []response.PortofoliosResponse
 	FindData(kategori string) []response.PortofoliosResponse
 	FindBack(kategori string) []response.PortofoliosResponse

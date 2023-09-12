@@ -6,9 +6,10 @@ import (
 )
 
 type ProfilesService interface {
-	Create(profile request.CreateProfilesRequest)
-	Update(profile request.UpdateProfilesRequest)
-	Delete(profileId int)
-	FindById(profileId int) response.ProfilesResponse
+	Create(profiles request.CreateProfilesRequest)
+	Update(profiles request.UpdateProfilesRequest)
+	Delete(profilesId int)
+	FindById(profilesId int) response.ProfilesResponse
 	FindAll() []response.ProfilesResponse
+	FindFirst() []response.ProfilesResponse
 }

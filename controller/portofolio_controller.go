@@ -34,6 +34,8 @@ func (controller *PortofolioController) Create(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 
 }
@@ -44,8 +46,8 @@ func (controller *PortofolioController) Update(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&updatePortofolioRequest)
 	helper.ErrorPanic(err)
 
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+	portofolioId := ctx.Param("portofolioId")
+	id, err := strconv.Atoi(portofolioId)
 	helper.ErrorPanic(err)
 	updatePortofolioRequest.Id = id
 
@@ -58,6 +60,8 @@ func (controller *PortofolioController) Update(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 
 }
@@ -77,6 +81,8 @@ func (controller *PortofolioController) Delete(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -95,6 +101,8 @@ func (controller *PortofolioController) FindById(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -110,6 +118,8 @@ func (controller *PortofolioController) FindAll(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -125,6 +135,8 @@ func (controller *PortofolioController) FindData(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -140,6 +152,8 @@ func (controller *PortofolioController) FindBack(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -155,6 +169,8 @@ func (controller *PortofolioController) FindFront(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -170,6 +186,8 @@ func (controller *PortofolioController) FindDesign(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -185,6 +203,8 @@ func (controller *PortofolioController) FindIndustrial(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
@@ -200,5 +220,7 @@ func (controller *PortofolioController) FindCategory(ctx *gin.Context) {
 	}
 	ctx.Header("Content-Type", "application/json")
 	ctx.Header("Access-Control-Allow-Origin", "*")
+
+	// ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
 	ctx.JSON(http.StatusOK, webResponse)
 }

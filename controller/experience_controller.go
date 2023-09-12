@@ -1,7 +1,6 @@
 package controller
 
 import (
-	// "fmt"
 	"net/http"
 	"os"
 	"strconv"
@@ -13,22 +12,22 @@ import (
 	"github.com/m/service"
 )
 
-type TagsController struct {
-	tagsService service.TagsService
+type ExperienceController struct {
+	experienceService service.ExperiencesService
 }
 
-func NewTagsController(service service.TagsService) *TagsController {
-	return &TagsController{
-		tagsService: service,
+func NewExperienceController(service service.ExperiencesService) *ExperienceController {
+	return &ExperienceController{
+		experienceService: service,
 	}
 }
 
 // create controller
-func (controller *TagsController) Create(ctx *gin.Context) {
-	createTagsRequest := request.CreateTagsRequest{}
-	err := ctx.ShouldBindJSON(&createTagsRequest)
+func (controller *ExperienceController) Create(ctx *gin.Context) {
+	CreateExperiencesRequest := request.CreateExperienceRequest{}
+	err := ctx.ShouldBindJSON(&CreateExperiencesRequest)
 	helper.ErrorPanic(err)
-	controller.tagsService.Create(createTagsRequest)
+	controller.experienceService.Create(CreateExperiencesRequest)
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
@@ -43,17 +42,17 @@ func (controller *TagsController) Create(ctx *gin.Context) {
 }
 
 // update controller
-func (controller *TagsController) Update(ctx *gin.Context) {
-	updateTagsRequest := request.UpdateTagsRequest{}
-	err := ctx.ShouldBindJSON(&updateTagsRequest)
+func (controller *ExperienceController) Update(ctx *gin.Context) {
+	updateExperiencesRequest := request.UpdateExperienceRequest{}
+	err := ctx.ShouldBindJSON(&updateExperiencesRequest)
 	helper.ErrorPanic(err)
 
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+	experienceId := ctx.Param("experienceId")
+	id, err := strconv.Atoi(experienceId)
 	helper.ErrorPanic(err)
-	updateTagsRequest.Id = id
+	updateExperiencesRequest.Id = id
 
-	controller.tagsService.Update(updateTagsRequest)
+	controller.experienceService.Update(updateExperiencesRequest)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
@@ -69,12 +68,12 @@ func (controller *TagsController) Update(ctx *gin.Context) {
 }
 
 // delete controller
-func (controller *TagsController) Delete(ctx *gin.Context) {
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+func (controller *ExperienceController) Delete(ctx *gin.Context) {
+	experienceId := ctx.Param("experienceId")
+	id, err := strconv.Atoi(experienceId)
 	helper.ErrorPanic(err)
 
-	controller.tagsService.Delete(id)
+	controller.experienceService.Delete(id)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
@@ -89,17 +88,17 @@ func (controller *TagsController) Delete(ctx *gin.Context) {
 }
 
 // FindById controller
-func (controller *TagsController) FindById(ctx *gin.Context) {
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+func (controller *ExperienceController) FindById(ctx *gin.Context) {
+	experienceId := ctx.Param("experienceId")
+	id, err := strconv.Atoi(experienceId)
 	helper.ErrorPanic(err)
 
-	tagResponse := controller.tagsService.FindById(id)
+	experienceResponse := controller.experienceService.FindById(id)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
-		Data:   tagResponse,
+		Data:   experienceResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
 	//ctx.Header("Access-Control-Allow-Origin", "*")
@@ -109,23 +108,16 @@ func (controller *TagsController) FindById(ctx *gin.Context) {
 }
 
 // FindAll controller
-func (controller *TagsController) FindAll(ctx *gin.Context) {
+func (controller *ExperienceController) FindAll(ctx *gin.Context) {
 
-	tagResponse := controller.tagsService.FindAll()
+	experienceResponse := controller.experienceService.FindAll()
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
-		Data:   tagResponse,
+		Data:   experienceResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
-	// allowedOrigins := [2]string{"http://127.0.0.1:3000", "http://localhost:3000"}
-	// origin := ctx
-	// fmt.Println()
-	// log.Info().Msg(origin)
-	// if allowedOrigins.includes(origin) {
-	// 	ctx.setHeader("Access-Control-Allow-Origin", origin)
-	// }
 	//ctx.Header("Access-Control-Allow-Origin", "*")
 
 	ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))

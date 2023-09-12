@@ -29,6 +29,7 @@ func (t *TagsServiceImpl) Create(tags request.CreateTagsRequest) {
 		Name: tags.Name,
 	}
 	t.TagsRepository.Save(tagModel)
+	// fmt.Println(tagModel)
 }
 
 // Delete implements TagsService.

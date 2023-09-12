@@ -12,4 +12,7 @@ type ProfilesResponse struct {
 	Jurusan            string `json:"jurusan"`
 	Universitas        string `json:"universitas"`
 	UrlFotoProfil      string `json:"urlFotoProfil"`
+	Skill              string `json:"skill"`
+	Header             string `json:"header"`
+	DeskripsiDiri      string `json:"deskripsiDiri"`
 }

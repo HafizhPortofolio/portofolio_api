@@ -17,53 +17,64 @@ func NewProfilesRepositoryImpl(Db *gorm.DB) ProfileRepository {
 	return &ProfilesRepositoryImpl{Db: Db}
 }
 
+// FindFirst implements ProfileRepository.
+func (t *ProfilesRepositoryImpl) FindFirst() []model.Profiles {
+	var profiles []model.Profiles
+	result := t.Db.First(&profiles)
+	helper.ErrorPanic(result.Error)
+	return profiles
+}
+
 // Delete implements ProfileRepository.
-func (t *ProfilesRepositoryImpl) Delete(profileId int) {
-	var profiles model.Profile
-	result := t.Db.Where("id=?", profileId).Delete(&profiles)
+func (t *ProfilesRepositoryImpl) Delete(profilesId int) {
+	var profiles model.Profiles
+	result := t.Db.Where("id=?", profilesId).Delete(&profiles)
 	helper.ErrorPanic(result.Error)
 }
 
 // FindAll implements ProfileRepository.
-func (t *ProfilesRepositoryImpl) FindAll() []model.Profile {
-	var profiles []model.Profile
+func (t *ProfilesRepositoryImpl) FindAll() []model.Profiles {
+	var profiles []model.Profiles
 	result := t.Db.Find(&profiles)
 	helper.ErrorPanic(result.Error)
 	return profiles
 }
 
 // FindById implements ProfileRepository.
-func (t *ProfilesRepositoryImpl) FindById(profileId int) (profile model.Profile, err error) {
-	var profiles model.Profile
-	result := t.Db.Find(&profiles, profileId)
+func (t *ProfilesRepositoryImpl) FindById(profilesId int) (profiles model.Profiles, err error) {
+	var profile model.Profiles
+	result := t.Db.Find(&profile, profilesId)
 	if result != nil {
-		return profiles, nil
+		return profile, nil
 	} else {
-		return profiles, errors.New("profile Not Found")
+		return profile, errors.New("profile Not Found")
 	}
 }
 
 // Save implements ProfileRepository.
-func (t *ProfilesRepositoryImpl) Save(profile model.Profile) {
-	result := t.Db.Find(&profile)
+func (t *ProfilesRepositoryImpl) Save(profiles model.Profiles) {
+	result := t.Db.Create(&profiles)
 	helper.ErrorPanic(result.Error)
 }
 
 // Update implements ProfileRepository.
-func (t *ProfilesRepositoryImpl) Update(profile model.Profile) {
+func (t *ProfilesRepositoryImpl) Update(profiles model.Profiles) {
 	var updateProfile = request.UpdateProfilesRequest{
-		Id:                 profile.Id,
-		Nama:               profile.Nama,
-		TempatLahir:        profile.TempatLahir,
-		TanggalLahir:       profile.TanggalLahir,
-		Alamat:             profile.Alamat,
-		Email:              profile.Email,
-		NoHandphone:        profile.NoHandphone,
-		PendidikanTerakhir: profile.PendidikanTerakhir,
-		Jurusan:            profile.Jurusan,
-		Universitas:        profile.Universitas,
-		UrlFotoProfil:      profile.UrlFotoProfil,
+		Id:                 profiles.Id,
+		Nama:               profiles.Nama,
+		TempatLahir:        profiles.TempatLahir,
+		TanggalLahir:       profiles.TanggalLahir,
+		Alamat:             profiles.Alamat,
+		Email:              profiles.Email,
+		NoHandphone:        profiles.NoHandphone,
+		PendidikanTerakhir: profiles.PendidikanTerakhir,
+		Jurusan:            profiles.Jurusan,
+		Universitas:        profiles.Universitas,
+		UrlFotoProfil:      profiles.UrlFotoProfil,
+		Skill:              profiles.Skill,
+		Header:             profiles.Header,
+		DeskripsiDiri:      profiles.DeskripsiDiri,
 	}
-	result := t.Db.Model(&profile).Updates(updateProfile)
+	result := t.Db.Model(&profiles).Updates(updateProfile)
 	helper.ErrorPanic(result.Error)
 }

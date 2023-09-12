@@ -22,27 +22,31 @@ func NewProfilesServiceImpl(profilesRepository repository.ProfileRepository, val
 }
 
 // Create implements ProfilesService.
-func (t *ProfilesServiceImpl) Create(profile request.CreateProfilesRequest) {
-	err := t.validate.Struct(profile)
+func (t *ProfilesServiceImpl) Create(profiles request.CreateProfilesRequest) {
+	err := t.validate.Struct(profiles)
 	helper.ErrorPanic(err)
-	profileModel := model.Profile{
-		Nama:               profile.Nama,
-		TempatLahir:        profile.TempatLahir,
-		TanggalLahir:       profile.TanggalLahir,
-		Alamat:             profile.Alamat,
-		Email:              profile.Email,
-		NoHandphone:        profile.NoHandphone,
-		PendidikanTerakhir: profile.PendidikanTerakhir,
-		Jurusan:            profile.Jurusan,
-		Universitas:        profile.Universitas,
-		UrlFotoProfil:      profile.UrlFotoProfil,
+	profileModel := model.Profiles{
+		Nama:               profiles.Nama,
+		TempatLahir:        profiles.TempatLahir,
+		TanggalLahir:       profiles.TanggalLahir,
+		Alamat:             profiles.Alamat,
+		Email:              profiles.Email,
+		NoHandphone:        profiles.NoHandphone,
+		PendidikanTerakhir: profiles.PendidikanTerakhir,
+		Jurusan:            profiles.Jurusan,
+		Universitas:        profiles.Universitas,
+		UrlFotoProfil:      profiles.UrlFotoProfil,
+		Skill:              profiles.Skill,
+		Header:             profiles.Header,
+		DeskripsiDiri:      profiles.DeskripsiDiri,
 	}
 	t.ProfilesRepository.Save(profileModel)
+	// fmt.Println(profileModel)
 }
 
 // Delete implements ProfilesService.
-func (t *ProfilesServiceImpl) Delete(profileId int) {
-	t.ProfilesRepository.Delete(profileId)
+func (t *ProfilesServiceImpl) Delete(profilesId int) {
+	t.ProfilesRepository.Delete(profilesId)
 }
 
 // FindAll implements ProfilesService.
@@ -63,6 +67,37 @@ func (t *ProfilesServiceImpl) FindAll() []response.ProfilesResponse {
 			Jurusan:            value.Jurusan,
 			Universitas:        value.Universitas,
 			UrlFotoProfil:      value.UrlFotoProfil,
+			Skill:              value.Skill,
+			Header:             value.Header,
+			DeskripsiDiri:      value.DeskripsiDiri,
+		}
+		profiles = append(profiles, profile)
+	}
+
+	return profiles
+}
+
+// FindFirst implements ProfilesService.
+func (t *ProfilesServiceImpl) FindFirst() []response.ProfilesResponse {
+	result := t.ProfilesRepository.FindFirst()
+
+	var profiles []response.ProfilesResponse
+	for _, value := range result {
+		profile := response.ProfilesResponse{
+			Id:                 value.Id,
+			Nama:               value.Nama,
+			TempatLahir:        value.TempatLahir,
+			TanggalLahir:       value.TanggalLahir,
+			Alamat:             value.Alamat,
+			Email:              value.Email,
+			NoHandphone:        value.NoHandphone,
+			PendidikanTerakhir: value.PendidikanTerakhir,
+			Jurusan:            value.Jurusan,
+			Universitas:        value.Universitas,
+			UrlFotoProfil:      value.UrlFotoProfil,
+			Skill:              value.Skill,
+			Header:             value.Header,
+			DeskripsiDiri:      value.DeskripsiDiri,
 		}
 		profiles = append(profiles, profile)
 	}
@@ -71,8 +106,8 @@ func (t *ProfilesServiceImpl) FindAll() []response.ProfilesResponse {
 }
 
 // FindById implements ProfilesService.
-func (t *ProfilesServiceImpl) FindById(profileId int) response.ProfilesResponse {
-	profileData, err := t.ProfilesRepository.FindById(profileId)
+func (t *ProfilesServiceImpl) FindById(profilesId int) response.ProfilesResponse {
+	profileData, err := t.ProfilesRepository.FindById(profilesId)
 	helper.ErrorPanic(err)
 
 	profileResponse := response.ProfilesResponse{
@@ -87,23 +122,29 @@ func (t *ProfilesServiceImpl) FindById(profileId int) response.ProfilesResponse 
 		Jurusan:            profileData.Jurusan,
 		Universitas:        profileData.Universitas,
 		UrlFotoProfil:      profileData.UrlFotoProfil,
+		Skill:              profileData.Skill,
+		Header:             profileData.Header,
+		DeskripsiDiri:      profileData.DeskripsiDiri,
 	}
 	return profileResponse
 }
 
 // Update implements ProfilesService.
-func (t *ProfilesServiceImpl) Update(profile request.UpdateProfilesRequest) {
-	profileData, err := t.ProfilesRepository.FindById(profile.Id)
+func (t *ProfilesServiceImpl) Update(profiles request.UpdateProfilesRequest) {
+	profileData, err := t.ProfilesRepository.FindById(profiles.Id)
 	helper.ErrorPanic(err)
-	profileData.Nama = profile.Nama
-	profileData.TempatLahir = profile.TempatLahir
-	profileData.TanggalLahir = profile.TanggalLahir
-	profileData.Alamat = profile.Alamat
-	profileData.Email = profile.Email
-	profileData.NoHandphone = profile.NoHandphone
-	profileData.PendidikanTerakhir = profile.PendidikanTerakhir
-	profileData.Jurusan = profile.Jurusan
-	profileData.Universitas = profile.Universitas
-	profileData.UrlFotoProfil = profile.UrlFotoProfil
+	profileData.Nama = profiles.Nama
+	profileData.TempatLahir = profiles.TempatLahir
+	profileData.TanggalLahir = profiles.TanggalLahir
+	profileData.Alamat = profiles.Alamat
+	profileData.Email = profiles.Email
+	profileData.NoHandphone = profiles.NoHandphone
+	profileData.PendidikanTerakhir = profiles.PendidikanTerakhir
+	profileData.Jurusan = profiles.Jurusan
+	profileData.Universitas = profiles.Universitas
+	profileData.UrlFotoProfil = profiles.UrlFotoProfil
+	profileData.Skill = profiles.Skill
+	profileData.Header = profiles.Header
+	profileData.DeskripsiDiri = profiles.DeskripsiDiri
 	t.ProfilesRepository.Update(profileData)
 }

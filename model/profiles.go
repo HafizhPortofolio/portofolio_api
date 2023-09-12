@@ -1,6 +1,6 @@
 package model
 
-type Profile struct {
+type Profiles struct {
 	Id                 int    `gorm:"type:int;primary_key"`
 	Nama               string `gorm:"type:varchar(255)"`
 	TempatLahir        string `gorm:"type:varchar(255)"`
@@ -12,4 +12,7 @@ type Profile struct {
 	Jurusan            string `gorm:"type:varchar(255)"`
 	Universitas        string `gorm:"type:varchar(255)"`
 	UrlFotoProfil      string `gorm:"type:varchar(255)"`
+	Skill              string `gorm:"type:varchar(255)"`
+	Header             string `gorm:"type:varchar(255)"`
+	DeskripsiDiri      string `gorm:"type:varchar(2000)"`
 }

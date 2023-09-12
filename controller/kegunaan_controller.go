@@ -13,22 +13,22 @@ import (
 	"github.com/m/service"
 )
 
-type TagsController struct {
-	tagsService service.TagsService
+type KegunaansController struct {
+	kegunaansService service.KegunaansService
 }
 
-func NewTagsController(service service.TagsService) *TagsController {
-	return &TagsController{
-		tagsService: service,
+func NewKegunaansController(service service.KegunaansService) *KegunaansController {
+	return &KegunaansController{
+		kegunaansService: service,
 	}
 }
 
 // create controller
-func (controller *TagsController) Create(ctx *gin.Context) {
-	createTagsRequest := request.CreateTagsRequest{}
-	err := ctx.ShouldBindJSON(&createTagsRequest)
+func (controller *KegunaansController) Create(ctx *gin.Context) {
+	createKegunaansRequest := request.CreateKegunaansRequest{}
+	err := ctx.ShouldBindJSON(&createKegunaansRequest)
 	helper.ErrorPanic(err)
-	controller.tagsService.Create(createTagsRequest)
+	controller.kegunaansService.Create(createKegunaansRequest)
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
@@ -43,17 +43,17 @@ func (controller *TagsController) Create(ctx *gin.Context) {
 }
 
 // update controller
-func (controller *TagsController) Update(ctx *gin.Context) {
-	updateTagsRequest := request.UpdateTagsRequest{}
-	err := ctx.ShouldBindJSON(&updateTagsRequest)
+func (controller *KegunaansController) Update(ctx *gin.Context) {
+	updateKegunaansRequest := request.UpdateKegunaansRequest{}
+	err := ctx.ShouldBindJSON(&updateKegunaansRequest)
 	helper.ErrorPanic(err)
 
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+	kegunaanId := ctx.Param("kegunaanId")
+	id, err := strconv.Atoi(kegunaanId)
 	helper.ErrorPanic(err)
-	updateTagsRequest.Id = id
+	updateKegunaansRequest.Id = id
 
-	controller.tagsService.Update(updateTagsRequest)
+	controller.kegunaansService.Update(updateKegunaansRequest)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
@@ -69,12 +69,12 @@ func (controller *TagsController) Update(ctx *gin.Context) {
 }
 
 // delete controller
-func (controller *TagsController) Delete(ctx *gin.Context) {
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+func (controller *KegunaansController) Delete(ctx *gin.Context) {
+	kegunaanId := ctx.Param("kegunaanId")
+	id, err := strconv.Atoi(kegunaanId)
 	helper.ErrorPanic(err)
 
-	controller.tagsService.Delete(id)
+	controller.kegunaansService.Delete(id)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
@@ -89,17 +89,17 @@ func (controller *TagsController) Delete(ctx *gin.Context) {
 }
 
 // FindById controller
-func (controller *TagsController) FindById(ctx *gin.Context) {
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+func (controller *KegunaansController) FindById(ctx *gin.Context) {
+	kegunaanId := ctx.Param("kegunaanId")
+	id, err := strconv.Atoi(kegunaanId)
 	helper.ErrorPanic(err)
 
-	tagResponse := controller.tagsService.FindById(id)
+	kegunaanResponse := controller.kegunaansService.FindById(id)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
-		Data:   tagResponse,
+		Data:   kegunaanResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
 	//ctx.Header("Access-Control-Allow-Origin", "*")
@@ -109,14 +109,14 @@ func (controller *TagsController) FindById(ctx *gin.Context) {
 }
 
 // FindAll controller
-func (controller *TagsController) FindAll(ctx *gin.Context) {
+func (controller *KegunaansController) FindAll(ctx *gin.Context) {
 
-	tagResponse := controller.tagsService.FindAll()
+	kegunaanResponse := controller.kegunaansService.FindAll()
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
-		Data:   tagResponse,
+		Data:   kegunaanResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
 	// allowedOrigins := [2]string{"http://127.0.0.1:3000", "http://localhost:3000"}

@@ -1,7 +1,6 @@
 package controller
 
 import (
-	// "fmt"
 	"net/http"
 	"os"
 	"strconv"
@@ -13,22 +12,22 @@ import (
 	"github.com/m/service"
 )
 
-type TagsController struct {
-	tagsService service.TagsService
+type FooterController struct {
+	footerService service.FooterService
 }
 
-func NewTagsController(service service.TagsService) *TagsController {
-	return &TagsController{
-		tagsService: service,
+func NewFooterController(service service.FooterService) *FooterController {
+	return &FooterController{
+		footerService: service,
 	}
 }
 
 // create controller
-func (controller *TagsController) Create(ctx *gin.Context) {
-	createTagsRequest := request.CreateTagsRequest{}
-	err := ctx.ShouldBindJSON(&createTagsRequest)
+func (controller *FooterController) Create(ctx *gin.Context) {
+	CreateFooterRequest := request.CreateFootersRequest{}
+	err := ctx.ShouldBindJSON(&CreateFooterRequest)
 	helper.ErrorPanic(err)
-	controller.tagsService.Create(createTagsRequest)
+	controller.footerService.Create(CreateFooterRequest)
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
@@ -43,17 +42,17 @@ func (controller *TagsController) Create(ctx *gin.Context) {
 }
 
 // update controller
-func (controller *TagsController) Update(ctx *gin.Context) {
-	updateTagsRequest := request.UpdateTagsRequest{}
-	err := ctx.ShouldBindJSON(&updateTagsRequest)
+func (controller *FooterController) Update(ctx *gin.Context) {
+	updateFooterRequest := request.UpdateFooterRequest{}
+	err := ctx.ShouldBindJSON(&updateFooterRequest)
 	helper.ErrorPanic(err)
 
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+	footerId := ctx.Param("footerId")
+	id, err := strconv.Atoi(footerId)
 	helper.ErrorPanic(err)
-	updateTagsRequest.Id = id
+	updateFooterRequest.Id = id
 
-	controller.tagsService.Update(updateTagsRequest)
+	controller.footerService.Update(updateFooterRequest)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
@@ -69,12 +68,12 @@ func (controller *TagsController) Update(ctx *gin.Context) {
 }
 
 // delete controller
-func (controller *TagsController) Delete(ctx *gin.Context) {
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+func (controller *FooterController) Delete(ctx *gin.Context) {
+	footerId := ctx.Param("footerId")
+	id, err := strconv.Atoi(footerId)
 	helper.ErrorPanic(err)
 
-	controller.tagsService.Delete(id)
+	controller.footerService.Delete(id)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
@@ -89,17 +88,17 @@ func (controller *TagsController) Delete(ctx *gin.Context) {
 }
 
 // FindById controller
-func (controller *TagsController) FindById(ctx *gin.Context) {
-	tagId := ctx.Param("tagId")
-	id, err := strconv.Atoi(tagId)
+func (controller *FooterController) FindById(ctx *gin.Context) {
+	footerId := ctx.Param("footerId")
+	id, err := strconv.Atoi(footerId)
 	helper.ErrorPanic(err)
 
-	tagResponse := controller.tagsService.FindById(id)
+	footerResponse := controller.footerService.FindById(id)
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
-		Data:   tagResponse,
+		Data:   footerResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
 	//ctx.Header("Access-Control-Allow-Origin", "*")
@@ -109,23 +108,33 @@ func (controller *TagsController) FindById(ctx *gin.Context) {
 }
 
 // FindAll controller
-func (controller *TagsController) FindAll(ctx *gin.Context) {
+func (controller *FooterController) FindAll(ctx *gin.Context) {
 
-	tagResponse := controller.tagsService.FindAll()
+	footerResponse := controller.footerService.FindAll()
 
 	webResponse := response.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK!",
-		Data:   tagResponse,
+		Data:   footerResponse,
 	}
 	ctx.Header("Content-Type", "application/json")
-	// allowedOrigins := [2]string{"http://127.0.0.1:3000", "http://localhost:3000"}
-	// origin := ctx
-	// fmt.Println()
-	// log.Info().Msg(origin)
-	// if allowedOrigins.includes(origin) {
-	// 	ctx.setHeader("Access-Control-Allow-Origin", origin)
-	// }
+	//ctx.Header("Access-Control-Allow-Origin", "*")
+
+	ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
+	ctx.JSON(http.StatusOK, webResponse)
+}
+
+// FindFirst controller
+func (controller *FooterController) FindFirst(ctx *gin.Context) {
+
+	footerResponse := controller.footerService.FindFirst()
+
+	webResponse := response.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK!",
+		Data:   footerResponse,
+	}
+	ctx.Header("Content-Type", "application/json")
 	//ctx.Header("Access-Control-Allow-Origin", "*")
 
 	ctx.Header("Access-Control-Allow-Origin", os.Getenv("ALLOWED_HOST"))
