@@ -1,6 +1,6 @@
 module github.com/MafuSora/portofolio_db
 
-go 1.21.0
+go 1.21
 
 require (
 	github.com/gin-contrib/cors v1.4.0
