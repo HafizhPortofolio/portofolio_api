@@ -3,9 +3,9 @@ package repository
 import (
 	"errors"
 
-	"github.com/m/data/request"
-	"github.com/m/helper"
-	"github.com/m/model"
+	"github.com/MafuSora/portofolio_db/data/request"
+	"github.com/MafuSora/portofolio_db/helper"
+	"github.com/MafuSora/portofolio_db/model"
 	"gorm.io/gorm"
 )
 
@@ -27,8 +27,9 @@ func (t *CategoriesRepositoryImpl) Delete(categoryId int) {
 // FindCertificate implements CategoriesRepository.
 func (t *CategoriesRepositoryImpl) FindCertificate(kategori string) []model.Category {
 	var categories []model.Category
-	result := t.Db.Where("kategori =?", kategori).Find(&categories)
+	result := t.Db.Where("kegunaan =?", kategori).Find(&categories)
 	// result := t.Db.Find(&portofolios, kategori)
+	// fmt.Println()
 	helper.ErrorPanic(result.Error)
 	return categories
 }
@@ -36,7 +37,7 @@ func (t *CategoriesRepositoryImpl) FindCertificate(kategori string) []model.Cate
 // FindPortofolio implements CategoriesRepository.
 func (t *CategoriesRepositoryImpl) FindPortofolio(kategori string) []model.Category {
 	var categories []model.Category
-	result := t.Db.Where("kategori =?", kategori).Find(&categories)
+	result := t.Db.Where("kegunaan =?", kategori).Find(&categories)
 	// result := t.Db.Find(&portofolios, kategori)
 	helper.ErrorPanic(result.Error)
 	return categories
@@ -64,7 +65,7 @@ func (t *CategoriesRepositoryImpl) FindById(categoryId int) (category model.Cate
 // FindCategory implements CategoriesRepository.
 func (t *CategoriesRepositoryImpl) FindCategory() []model.Category {
 	var categories []model.Category
-	result := t.Db.Distinct("kategori").Find(&categories)
+	result := t.Db.Distinct("kegunaan").Find(&categories)
 	// result := t.Db.Find(&portofolios, kategori)
 	helper.ErrorPanic(result.Error)
 	return categories

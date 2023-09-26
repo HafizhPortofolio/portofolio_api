@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/m/data/request"
-	"github.com/m/data/response"
+	"github.com/MafuSora/portofolio_db/data/request"
+	"github.com/MafuSora/portofolio_db/data/response"
 )
 
 type CertificatesService interface {

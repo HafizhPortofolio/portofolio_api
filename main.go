@@ -3,14 +3,14 @@ package main
 import (
 	"net/http"
 
+	"github.com/MafuSora/portofolio_db/config"
+	"github.com/MafuSora/portofolio_db/controller"
+	"github.com/MafuSora/portofolio_db/helper"
+	"github.com/MafuSora/portofolio_db/model"
+	"github.com/MafuSora/portofolio_db/repository"
+	"github.com/MafuSora/portofolio_db/router"
+	"github.com/MafuSora/portofolio_db/service"
 	"github.com/go-playground/validator/v10"
-	"github.com/m/config"
-	"github.com/m/controller"
-	"github.com/m/helper"
-	"github.com/m/model"
-	"github.com/m/repository"
-	"github.com/m/router"
-	"github.com/m/service"
 	"github.com/rs/zerolog/log"
 )
 

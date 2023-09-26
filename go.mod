@@ -1,4 +1,4 @@
-module github.com/m
+module github.com/MafuSora/portofolio_db
 
 go 1.21.0
 

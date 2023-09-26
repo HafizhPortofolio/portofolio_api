@@ -3,9 +3,9 @@ package repository
 import (
 	"errors"
 
-	"github.com/m/data/request"
-	"github.com/m/helper"
-	"github.com/m/model"
+	"github.com/MafuSora/portofolio_db/data/request"
+	"github.com/MafuSora/portofolio_db/helper"
+	"github.com/MafuSora/portofolio_db/model"
 	"gorm.io/gorm"
 )
 

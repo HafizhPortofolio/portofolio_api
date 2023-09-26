@@ -6,11 +6,11 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/MafuSora/portofolio_db/data/request"
+	"github.com/MafuSora/portofolio_db/data/response"
+	"github.com/MafuSora/portofolio_db/helper"
+	"github.com/MafuSora/portofolio_db/service"
 	"github.com/gin-gonic/gin"
-	"github.com/m/data/request"
-	"github.com/m/data/response"
-	"github.com/m/helper"
-	"github.com/m/service"
 )
 
 type KegunaansController struct {

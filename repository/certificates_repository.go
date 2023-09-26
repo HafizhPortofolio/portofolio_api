@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/m/model"
+import "github.com/MafuSora/portofolio_db/model"
 
 type CertificatesRepository interface {
 	Save(certificate model.Certificate)

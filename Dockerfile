@@ -1,27 +1,38 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.21
+# We use a multi-stage build setup.
+# (https://docs.docker.com/build/building/multi-stage/)
 
-# Set destination for COPY
-WORKDIR /portofolio_db
+# Stage 1 (to create a "build" image, ~850MB)
+FROM golang:1.21 AS builder
+# smoke test to verify if golang is available
+RUN go version
 
-# Download Go modules
-COPY go.mod go.sum ./
-RUN go mod download
+ARG PROJECT_VERSION
 
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/engine/reference/builder/#copy
-COPY *.go ./
+COPY . /go/src/github.com//m/portofolio_db
+WORKDIR /go/src/github.com//m/portofolio_db
+RUN set -Eeux && \
+    go mod download && \
+    go mod verify
 
-# Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+RUN GOOS=linux GOARCH=amd64 \
+    go build \
+    -trimpath \
+    -ldflags="-w -s -X 'main.Version=${PROJECT_VERSION}'" \
+    -o app cmd/portofolio_db/main.go
+RUN go test -cover -v ./...
 
-# Optional:
-# To bind to a TCP port, runtime parameters must be supplied to the docker command.
-# But we can document in the Dockerfile what ports
-# the application is going to listen on by default.
-# https://docs.docker.com/engine/reference/builder/#expose
+# Stage 2 (to create a downsized "container executable", ~5MB)
+
+# If you need SSL certificates for HTTPS, replace `FROM SCRATCH` with:
+#
+#   FROM alpine:3.17.1
+#   RUN apk --no-cache add ca-certificates
+#
+FROM scratch
+WORKDIR /root/
+COPY --from=builder /go/src/github.com//m/portofolio_db/app .
+
 EXPOSE 8888
-
-# Run
-CMD ["/docker-gs-ping"]
+ENTRYPOINT ["./app"]

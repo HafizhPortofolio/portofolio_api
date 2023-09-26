@@ -1,9 +1,9 @@
 package router
 
 import (
+	"github.com/MafuSora/portofolio_db/controller"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/m/controller"
 )
 
 func corsMiddleware() gin.HandlerFunc {

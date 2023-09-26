@@ -1,12 +1,12 @@
 package service
 
 import (
+	"github.com/MafuSora/portofolio_db/data/request"
+	"github.com/MafuSora/portofolio_db/data/response"
+	"github.com/MafuSora/portofolio_db/helper"
+	"github.com/MafuSora/portofolio_db/model"
+	"github.com/MafuSora/portofolio_db/repository"
 	"github.com/go-playground/validator/v10"
-	"github.com/m/data/request"
-	"github.com/m/data/response"
-	"github.com/m/helper"
-	"github.com/m/model"
-	"github.com/m/repository"
 )
 
 type KegunaansServiceImpl struct {

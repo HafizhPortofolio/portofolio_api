@@ -6,8 +6,8 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/MafuSora/portofolio_db/helper"
 	"github.com/joho/godotenv"
-	"github.com/m/helper"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

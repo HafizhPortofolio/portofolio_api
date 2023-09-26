@@ -12,7 +12,7 @@ type Profiles struct {
 	Jurusan            string `gorm:"type:varchar(255)"`
 	Universitas        string `gorm:"type:varchar(255)"`
 	UrlFotoProfil      string `gorm:"type:varchar(255)"`
-	Skill              string `gorm:"type:varchar(255)"`
+	Skill              string `gorm:"type:varchar(2000)"`
 	Header             string `gorm:"type:varchar(255)"`
 	DeskripsiDiri      string `gorm:"type:varchar(2000)"`
 }
