@@ -32,6 +32,7 @@ func (t *ExperiencesServiceImpl) Create(experience request.CreateExperienceReque
 		TanggalAwal:  experience.TanggalAwal,
 		TanggalAkhir: experience.TanggalAkhir,
 		Deskripsi:    experience.Deskripsi,
+		Skill:        experience.Skill,
 		UrlFoto:      experience.UrlFoto,
 		UrlLink:      experience.UrlLink,
 	}
@@ -56,6 +57,7 @@ func (t *ExperiencesServiceImpl) FindAll() []response.ExperienceResponse {
 			TanggalAwal:  value.TanggalAwal,
 			TanggalAkhir: value.TanggalAkhir,
 			Deskripsi:    value.Deskripsi,
+			Skill:        value.Skill,
 			UrlFoto:      value.UrlFoto,
 			UrlLink:      value.UrlLink,
 		}
@@ -77,6 +79,7 @@ func (t *ExperiencesServiceImpl) FindById(experienceId int) response.ExperienceR
 		TanggalAwal:  experienceData.TanggalAwal,
 		TanggalAkhir: experienceData.TanggalAkhir,
 		Deskripsi:    experienceData.Deskripsi,
+		Skill:        experienceData.Skill,
 		UrlFoto:      experienceData.UrlFoto,
 		UrlLink:      experienceData.UrlLink,
 	}
@@ -93,6 +96,7 @@ func (t *ExperiencesServiceImpl) Update(experience request.UpdateExperienceReque
 	experienceData.TanggalAkhir = experience.TanggalAkhir
 	experienceData.TanggalAwal = experience.TanggalAwal
 	experienceData.Deskripsi = experience.Deskripsi
+	experienceData.Skill = experience.Skill
 	experienceData.UrlFoto = experience.UrlFoto
 	experienceData.UrlLink = experience.UrlLink
 	t.ExperienceRepository.Update(experienceData)
