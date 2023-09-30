@@ -1,6 +1,8 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/MafuSora/portofolio_db/controller"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -28,7 +30,7 @@ func NewRouter(tagsController *controller.TagsController, categoriesController *
 	router := gin.Default()
 	// router.Use(corsMiddleware())
 	router.Use(cors.Default())
-
+	router.LoadHTMLGlob("templates/*")
 	// router.Use(cors.New(cors.Config{
 	// 	AllowOrigins:     []string{"*"},
 	// 	AllowMethods:     []string{"GET", "PATCH", "POST", "PUT", "DELETE"},
@@ -40,8 +42,17 @@ func NewRouter(tagsController *controller.TagsController, categoriesController *
 	// 	},
 	// 	MaxAge: 12 * time.Hour,
 	// }))
+	router.GET("", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"title": "Main website",
+		})
+	})
 	baseRouter := router.Group("/api")
-
+	baseRouter.GET("", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"title": "Main website",
+		})
+	})
 	tagsRouter := baseRouter.Group("/tags")
 	tagsRouter.GET("", tagsController.FindAll)
 	tagsRouter.GET("/:tagId", tagsController.FindById)
